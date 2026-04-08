@@ -43,6 +43,7 @@ dedoLom2/
 │   ├── client.csproj      # Файл проекта .NET
 │   └── bin/Release/net8.0/win-x64/publish/
 │       └── beacon.exe     # Скомпилированный beacon (~14 MB)
+├── client.ps1             # PowerShell версия клиента (без компиляции)
 └── README.md
 ```
 
@@ -56,7 +57,8 @@ dedoLom2/
 - .NET 8 SDK (`winget install Microsoft.DotNet.SDK.8`)
 
 **Для запуска beacon (целевая машина):**
-- Только Windows x64. Никаких зависимостей — всё встроено в .exe
+- **beacon.exe** — только Windows x64, никаких зависимостей — всё встроено в .exe
+- **client.ps1** — любая Windows с PowerShell 5.1+ (есть по умолчанию в Windows 10/11)
 
 ## Установка и запуск
 
@@ -99,6 +101,19 @@ client\bin\Release\net8.0\win-x64\publish\beacon.exe
 cd client
 dotnet publish -c Release
 bin\Release\net8.0\win-x64\publish\beacon.exe
+```
+
+**Вариант C — PowerShell скрипт (без компиляции, без зависимостей):**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File client.ps1
+```
+
+PowerShell версия не требует ни .NET SDK, ни компиляции — просто скрипт. Работает на любой Windows 10/11 из коробки. Удобна для быстрого тестирования.
+
+Адрес сервера задаётся в первой строке файла `client.ps1`:
+```powershell
+$ServerUrl = "http://192.168.1.100:5000"
 ```
 
 ### Шаг 4. Использовать веб-интерфейс
